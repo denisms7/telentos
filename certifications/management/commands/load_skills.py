@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from curriculum.models import Skill, SkillType
+from certifications.models import Skill, SkillType
 
 
 class Command(BaseCommand):

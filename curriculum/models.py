@@ -14,9 +14,6 @@ class SkillType(models.TextChoices):
     SOFT = "soft", "Soft Skill"
 
 
-
-
-
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     skill_type = models.CharField(

@@ -1,0 +1,67 @@
+services:
+  postgres-db:
+    container_name: ${POSTGRES_HOST}
+    image: postgres:17.5
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - network-uteis
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  nginx-proxy:
+    container_name: nginx-uteis
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+      - ./staticfiles:/var/www/staticfiles
+      - media:/var/www/media
+    networks:
+      - network-uteis
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  django-app:
+    container_name: django-uteis
+    build: .
+    restart: always
+    volumes:
+      - ./:/app
+      - ./staticfiles:/app/staticfiles
+      - media:/app/media
+    env_file:
+      - .env
+    networks:
+      - network-uteis
+    depends_on:
+      - postgres-db
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        python manage.py collectstatic --noinput &&
+        gunicorn --config gunicorn_config.py app.wsgi:application
+      "
+
+networks:
+  network-uteis:
+    driver: bridge
+    attachable: true
+
+volumes:
+  postgres_data:
+  media:

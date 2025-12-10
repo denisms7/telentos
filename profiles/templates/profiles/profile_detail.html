@@ -15,16 +15,16 @@
     <p>
         <strong>Usuário:</strong> {{ user.username }}<br>
         <strong>Matrícula:</strong> xxx<br>
-        <strong>Nome:</strong> {{ user.get_full_name }}
+        <strong>Nome:</strong> {{ user.get_full_name }}<br>
+        <strong>Cargo:</strong> {{ object.position }}
     </p>
-    <p><strong>Setor:</strong> {{ object.sector }}</p>
 
     <hr>
 
     <h2>Habilidades</h2>
     <div class="row g-1">
         {% for skill in object.skills.all %}
-            <div class="col-sm-6 col-md-2">
+            <div class="col-6 col-sm-3 col-md-2 col-xl-2 col-xxl-1">
                 <div class="card shadow-sm">
                     <div class="card-body p-2 text-center">
                         <h6 class="card-title mb-1">{{ skill.skill.name }}</h6>

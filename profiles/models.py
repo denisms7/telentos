@@ -24,8 +24,8 @@ class Profile(models.Model):
         related_name="profile",
         unique=True,
     )
-    sector = models.CharField(
-        verbose_name="Setor Atual",
+    position = models.CharField(
+        verbose_name="Cargo",
         max_length=150,
         blank=True,
     )

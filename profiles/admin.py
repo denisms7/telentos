@@ -20,14 +20,14 @@ class CertificationInline(admin.TabularInline):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "sector")
+    list_display = ("user", "position")
     search_fields = (
         "user__username",
         "user__first_name",
         "user__last_name",
-        "sector",
+        "position",
     )
-    list_filter = ("sector",)
+    list_filter = ("position",)
     inlines = (
         ProfileSkillInline,
         CertificationInline,

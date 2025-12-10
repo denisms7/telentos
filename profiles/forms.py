@@ -6,7 +6,7 @@ from .models import Profile, ProfileSkill, Certification
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ("sector",)
+        fields = ("position",)
 
 
 class ProfileSkillForm(forms.ModelForm):

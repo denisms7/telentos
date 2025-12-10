@@ -9,16 +9,6 @@ from django.views.generic import (
 )
 
 from .models import Profile, ProfileSkill, Certification, Skill
-from .forms import (
-    ProfileForm,
-    ProfileSkillForm,
-    CertificationForm,
-)
-
-
-
-
-
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
@@ -28,14 +18,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     def get_object(self):
         return self.request.user.profile
 
-
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model = Profile
-    form_class = ProfileForm
-    template_name = "profiles/profile_form.html"
-    success_url = reverse_lazy("profiles:detail")
-
-    def get_object(self):
-        return self.request.user.profile
-
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["certifications"] = self.object.certifications.order_by("-issue_date")
+        return context

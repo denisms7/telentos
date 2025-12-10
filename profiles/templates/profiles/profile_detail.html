@@ -7,25 +7,41 @@
 {% endblock title %}
 
 {% block content %}
-    {% include "menu.html" %}
 
+
+<style>
+    .skill-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: default;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+
+
+    {% include "menu.html" %}
 
     <h1>Meu Perfil</h1>
 
     <p>
-        <strong>Usuário:</strong> {{ user.username }}<br>
-        <strong>Matrícula:</strong> xxx<br>
-        <strong>Nome:</strong> {{ user.get_full_name }}<br>
-        <strong>Cargo:</strong> {{ object.position }}
-    </p>
+        <strong>Usuário:</strong> {{ user.username }}
+        <strong class="ms-3">Cargo:</strong> {{ object.position }}<br>
+        <strong>Matrícula:</strong> {{ object.registration }} 
+        <strong class="ms-3">Nome:</strong> {{ user.get_full_name }}<br>
+    </p> 
 
     <hr>
 
     <h2>Habilidades</h2>
     <div class="row g-1">
         {% for skill in object.skills.all %}
-            <div class="col-6 col-sm-3 col-md-2 col-xl-2 col-xxl-1">
-                <div class="card shadow-sm">
+
+            <div class="col-6 col-sm-3 col-md-2 col-xl-2">
+                <div class="card shadow-sm skill-card">
                     <div class="card-body p-2 text-center">
                         <h6 class="card-title mb-1">{{ skill.skill.name }}</h6>
                         <p class="card-text small mb-0">
@@ -45,6 +61,7 @@
                     </div>
                 </div>
             </div>
+
         {% empty %}
             <div class="col-12">
                 <p class="small">Nenhuma habilidade cadastrada.</p>
@@ -56,9 +73,66 @@
 
     <h2>Certificações</h2>
 
+    {% if object.certifications.all %}
 
+        <div class="table-responsive">
+            <table class="table table-sm align-middle table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Data:</th>
+                        <th scope="col">Tipo:</th>
+                        <th scope="col">Instituição:</th>
+                        <th scope="col">Certificação:</th>
+                        <th scope="col">CH:</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in object.certifications.all %}
+                        <tr>
+                            <td>{{ cert.issue_date }}</td>
+                            <td>{{ cert.get_certification_type_display }}</td>
+                            <td>{{ cert.institution }}</td>
+                            <td>{{ cert.name }}</td>
+                            <td>{{ cert.workload }}</td>
+                            <td class="text-end">
+                                {% if cert.file %}
+                                    <a class="btn btn-sm btn-primary"
+                                    href="{{ cert.file.url }}"
+                                    target="_blank"
+                                    title="Visualizar PDF">
+                                        <i class="bi bi-file-earmark-pdf"></i>
+                                    </a>
+                                {% elif cert.link %}
+                                    <a class="btn btn-sm btn-outline-primary"
+                                    href="{{ cert.link }}"
+                                    target="_blank"
+                                    title="Acessar link do certificado">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="btn btn-sm btn-primary disabled"
+                                        href="#" tabindex="-1" aria-disabled="true" title="Nenhum PDF disponível">
+                                        <i class="bi bi-file-earmark-x"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
 
-
-
-
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-muted text-center py-3">
+                                Nenhuma certificação cadastrada.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+    {% else %}
+        <div class="col-12">
+            <p class="small">Nenhuma certifição cadastrada.</p>
+        </div>
+    {% endif %}
 {% endblock content %}

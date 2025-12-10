@@ -17,18 +17,9 @@ class CertificationType(models.TextChoices):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        User,
-        verbose_name="Usuário",
-        on_delete=models.CASCADE,
-        related_name="profile",
-        unique=True,
-    )
-    position = models.CharField(
-        verbose_name="Cargo",
-        max_length=150,
-        blank=True,
-    )
+    user = models.OneToOneField(User, verbose_name="Usuário", on_delete=models.CASCADE, related_name="profile", unique=True,)
+    position = models.CharField(verbose_name="Cargo", max_length=150, blank=True,)
+    registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True,)
 
     def __str__(self):
         full_name = self.user.get_full_name().strip()
@@ -63,12 +54,6 @@ class Certification(models.Model):
     )
 
     issue_date = models.DateField("Data de Emissão")
-
-    skills = models.ManyToManyField(
-        Skill,
-        related_name="profile_certifications",
-        blank=True,
-    )
 
     file = models.FileField(
         "Arquivo (PDF)",

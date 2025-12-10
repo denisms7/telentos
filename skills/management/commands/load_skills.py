@@ -73,7 +73,7 @@ class Command(BaseCommand):
             ("Atendimento ao Público", SkillType.SOFT),
         ]
 
-        created_count  = 0
+        created_count = 0
 
         for name, skill_type in skills:
             obj, created = Skill.objects.get_or_create(

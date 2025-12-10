@@ -1,15 +1,16 @@
 from django import forms
-
 from .models import Profile, ProfileSkill, Certification
 
 
 class ProfileForm(forms.ModelForm):
+
     class Meta:
         model = Profile
         fields = ("position",)
 
 
 class ProfileSkillForm(forms.ModelForm):
+
     class Meta:
         model = ProfileSkill
         fields = (
@@ -20,6 +21,7 @@ class ProfileSkillForm(forms.ModelForm):
 
 
 class CertificationForm(forms.ModelForm):
+
     class Meta:
         model = Certification
         fields = (
@@ -36,21 +38,3 @@ class CertificationForm(forms.ModelForm):
             "issue_date": forms.DateInput(attrs={"type": "date"}),
             "skills": forms.CheckboxSelectMultiple(),
         }
-
-
-class ProfileSkillForm(forms.ModelForm):
-    class Meta:
-        model = ProfileSkill
-        fields = (
-            "skill",
-            "level",
-            "years_experience",
-        )
-        widgets = {
-            "skill": forms.Select(attrs={"class": "form-select"}),
-            "level": forms.Select(attrs={"class": "form-select"}),
-            "years_experience": forms.NumberInput(
-                attrs={"class": "form-control"}
-            ),
-        }
-

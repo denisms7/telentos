@@ -8,7 +8,7 @@ from django.views.generic import (
     TemplateView,
 )
 
-from .models import Profile, ProfileSkill, Certification, Skill
+from .models import Profile
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):

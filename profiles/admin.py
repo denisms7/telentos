@@ -2,10 +2,9 @@ from django.contrib import admin
 
 from .models import (
     Profile,
-    ProfileCertification,
     ProfileSkill,
+    Certification,
 )
-
 
 class ProfileSkillInline(admin.TabularInline):
     model = ProfileSkill
@@ -13,18 +12,15 @@ class ProfileSkillInline(admin.TabularInline):
     autocomplete_fields = ("skill",)
 
 
-class ProfileCertificationInline(admin.TabularInline):
-    model = ProfileCertification
+class CertificationInline(admin.TabularInline):
+    model = Certification
     extra = 1
-    autocomplete_fields = ("certification",)
+    autocomplete_fields = ("skills",)
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "sector",
-    )
+    list_display = ("user", "sector")
     search_fields = (
         "user__username",
         "user__first_name",
@@ -34,43 +30,17 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ("sector",)
     inlines = (
         ProfileSkillInline,
-        ProfileCertificationInline,
+        CertificationInline,
     )
 
-
-@admin.register(ProfileSkill)
-class ProfileSkillAdmin(admin.ModelAdmin):
+@admin.register(Certification)
+class CertificationAdmin(admin.ModelAdmin):
     list_display = (
+        "name",
         "profile",
-        "skill",
-        "level",
-        "years_experience",
+        "certification_type",
+        "institution",
+        "issue_date",
     )
-    list_filter = (
-        "level",
-        "skill__skill_type",
-    )
-    search_fields = (
-        "profile__user__username",
-        "skill__name",
-    )
-    autocomplete_fields = (
-        "profile",
-        "skill",
-    )
-
-
-@admin.register(ProfileCertification)
-class ProfileCertificationAdmin(admin.ModelAdmin):
-    list_display = (
-        "profile",
-        "certification",
-    )
-    search_fields = (
-        "profile__user__username",
-        "certification__name",
-    )
-    autocomplete_fields = (
-        "profile",
-        "certification",
-    )
+    list_filter = ("certification_type", "institution")
+    search_fields = ("name", "institution", "profile__user__username")

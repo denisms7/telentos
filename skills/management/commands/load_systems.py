@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from certifications.models import System
+from skills.models import System
 
 
 class Command(BaseCommand):

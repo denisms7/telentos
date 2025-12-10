@@ -53,9 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
 
-    'certifications',
     'accounts',
+    'skills',
     'profiles',
+
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [

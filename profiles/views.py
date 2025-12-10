@@ -1,13 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
     ListView,
+    TemplateView,
 )
-
+import json
 
 from .models import Profile, ProfileSkill, Certification, Skill
 from .forms import (
@@ -89,25 +89,23 @@ class ProfileSkillCreateView(LoginRequiredMixin, CreateView):
 @login_required
 @require_POST
 def toggle_profile_skill(request):
-    skill_id = request.POST.get("skill_id")
-    action = request.POST.get("action")
+    data = json.loads(request.body)
+    skill_id = data.get("skill_id")
 
-    skill = get_object_or_404(Skill, id=skill_id)
     profile = request.user.profile
+    skill = Skill.objects.get(id=skill_id)
 
-    if action == "add":
-        ProfileSkill.objects.get_or_create(
-            profile=profile,
-            skill=skill,
-        )
+    obj, created = ProfileSkill.objects.get_or_create(
+        profile=profile,
+        skill=skill,
+        defaults={"level": "basic", "years_experience": 0},
+    )
 
-    elif action == "remove":
-        ProfileSkill.objects.filter(
-            profile=profile,
-            skill=skill,
-        ).delete()
+    if not created:
+        obj.delete()
+        return JsonResponse({"status": "removed"})
 
-    return JsonResponse({"status": "ok"})
+    return JsonResponse({"status": "added"})
 
 
 

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Gerenciar Habilidades</h3>
+
+    <div class="row mt-4">
+
+        <!-- NÃO TENHO -->
+        <div class="col-md-6">
+            <h5>Não tenho</h5>
+            <ul
+                id="skills-available"
+                class="list-group min-vh-50 border rounded p-2"
+            >
+                {% for skill in available_skills %}
+                    <li
+                        class="list-group-item"
+                        data-id="{{ skill.id }}"
+                    >
+                        {{ skill.name }}
+                    </li>
+                {% empty %}
+                    <li
+                        class="list-group-item text-muted disabled"
+                    >
+                        Nenhuma habilidade disponível
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- TENHO -->
+        <div class="col-md-6">
+            <h5>Tenho</h5>
+            <ul
+                id="skills-user"
+                class="list-group min-vh-50 border rounded p-2"
+            >
+                {% for ps in user_skills %}
+                    <li
+                        class="list-group-item"
+                        data-id="{{ ps.skill.id }}"
+                    >
+                        {{ ps.skill.name }}
+                    </li>
+                {% empty %}
+                    <li
+                        class="list-group-item text-muted disabled"
+                    >
+                        Arraste habilidades para cá
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+
+    function toggleSkill(skillId) {
+        fetch("{% url 'profiles:skills-toggle' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": CSRF_TOKEN,
+            },
+            body: JSON.stringify({
+                skill_id: skillId,
+            }),
+        });
+    }
+
+    new Sortable(
+        document.getElementById("skills-available"),
+        {
+            group: {
+                name: "skills",
+                pull: true,
+                put: true,
+            },
+            animation: 150,
+            filter: ".disabled",
+            onAdd(evt) {
+                toggleSkill(evt.item.dataset.id);
+            },
+        }
+    );
+
+    new Sortable(
+        document.getElementById("skills-user"),
+        {
+            group: {
+                name: "skills",
+                pull: true,
+                put: true,
+            },
+            animation: 150,
+            filter: ".disabled",
+            onAdd(evt) {
+                toggleSkill(evt.item.dataset.id);
+            },
+        }
+    );
+</script>
+{% endblock %}

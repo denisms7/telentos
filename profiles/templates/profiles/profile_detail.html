@@ -8,29 +8,28 @@
 
 {% block content %}
 
+    <style>
+        .skill-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
 
-<style>
-    .skill-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: default;
-    }
-
-    .skill-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-</style>
-
-
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+    </style>
 
     {% include "menu.html" %}
 
-    <h1>Meu Perfil</h1>
+    <h2>Meu Perfil</h2>
 
     <p>
         <strong>Usuário:</strong> {{ user.username }}
         <strong class="ms-3">Cargo:</strong> {{ object.position }}<br>
-        <strong>Matrícula:</strong> {{ object.registration }} 
+
+        <strong>Admissão:</strong> {{ object.admission_date|date:"d/m/Y" }}
+        <strong class="ms-3">Matrícula:</strong> {{ object.registration }} 
         <strong class="ms-3">Nome:</strong> {{ user.get_full_name }}<br>
     </p> 
 

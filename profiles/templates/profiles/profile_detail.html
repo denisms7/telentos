@@ -22,7 +22,7 @@
 
     {% include "menu.html" %}
 
-    <h2>👤 Meu Perfil</h2>
+    <h2 class="mt-5">👤 Meu Perfil</h2>
     <hr>
 
     <p>
@@ -34,7 +34,7 @@
         <strong class="ms-3">Nome:</strong> {{ user.get_full_name }}<br>
     </p> 
 
-    <h2>🧠 Habilidades</h2>
+    <h2 class="mt-5">🧠 Habilidades</h2>
     <hr>
 
     <div class="row g-1">
@@ -69,7 +69,7 @@
         {% endfor %}
     </div>
 
-    <h2>📜 Certificações</h2>
+    <h2 class="mt-5">📜 Certificações</h2>
     <hr>
 
     {% if object.certifications.all %}
@@ -135,7 +135,7 @@
         </div>
     {% endif %}
     
-    <h2>🖥️ Sistemas</h2>
+    <h2 class="mt-5">🖥️ Sistemas</h2>
     <hr>
 
     <div class="g-1">
@@ -161,7 +161,7 @@
         {% endfor %}
     </div>
 
-    <h2>🧩 Banco de Talentos</h2>
+    <h2 class="mt-5">🧩 Banco de Talentos</h2>
     <hr>
 
     <div class="">
@@ -180,9 +180,5 @@
             Em resumo, o Banco de Talentos atua como uma ferramenta estratégica que aumenta a eficiência dos processos de gestão de pessoas, apoia decisões mais assertivas e contribui para resultados organizacionais sustentáveis.
         </p>
     </div>
-
-
-
-
 
 {% endblock content %}

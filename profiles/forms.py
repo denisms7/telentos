@@ -1,6 +1,5 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from .models import Profile, ProfileSkill, Certification
+from .models import ProfileSkill, Certification
 
 
 class CertificationForm(forms.ModelForm):
@@ -72,33 +71,18 @@ class ProfileSkillForm(forms.ModelForm):
         return cleaned_data
 
 
-
 class ProfileSkillDetailForm(forms.ModelForm):
     """ Formulário somente leitura para o DetailView """
-
     class Meta:
         model = ProfileSkill
         fields = [
             "skill",
             "level",
             "years_experience",
-            "order",
         ]
-
-        widgets = {
-            "skill": forms.TextInput(attrs={"class": "form-control", "readonly": True}),
-            "level": forms.TextInput(attrs={"class": "form-control", "readonly": True}),
-            "years_experience": forms.NumberInput(
-                attrs={"class": "form-control", "readonly": True}
-            ),
-            "order": forms.NumberInput(
-                attrs={"class": "form-control", "readonly": True}
-            ),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         # Desabilita todos os campos
         for field in self.fields.values():
             field.disabled = True

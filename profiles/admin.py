@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Profile, ProfileSkill, ProfileSystem
+from .models import Profile
+
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -10,4 +11,3 @@ class ProfileAdmin(admin.ModelAdmin):
         "user__last_name",
         "position",
     )
-

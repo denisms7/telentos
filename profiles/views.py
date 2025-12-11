@@ -4,21 +4,12 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models.deletion import ProtectedError, RestrictedError
-from django.views.generic import (
-    DetailView,
-    CreateView,
-    UpdateView,
-    ListView,
-    TemplateView,
-    DeleteView,
-)
-
-
+from django.views.generic import (DetailView, CreateView, UpdateView, ListView, DeleteView,)
 from .models import Profile, Certification, CertificationType, ProfileSkill, SkillLevel
 from skills.models import SkillType
-
 from .forms import CertificationForm, CertificationDetail_ModelForm
 from .forms import ProfileSkillForm, ProfileSkillDetailForm
+
 
 class ProfileDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Profile
@@ -130,31 +121,32 @@ class CertificationDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delet
         return Certification.objects.filter(profile=self.request.user.profile)
 
     def delete(self, request, *args, **kwargs):
-            self.object = self.get_object()
 
-            try:
-                self.object.delete()
-                messages.success(request, "Certificado deletado com sucesso.")
+        self.object = self.get_object()
 
-            except ProtectedError:
-                messages.warning(
-                    request,
-                    "Este certificado não pode ser deletado pois existem dados vinculados."
-                )
+        try:
+            self.object.delete()
+            messages.success(request, "Certificado deletado com sucesso.")
 
-            except RestrictedError:
-                messages.warning(
-                    request,
-                    "Este certificado possui vínculos restritos e não pode ser deletado."
-                )
+        except ProtectedError:
+            messages.warning(
+                request,
+                "Este certificado não pode ser deletado pois existem dados vinculados."
+            )
 
-            except Exception:
-                messages.error(
-                    request,
-                    "Ocorreu um erro ao tentar deletar o certificado."
-                )
+        except RestrictedError:
+            messages.warning(
+                request,
+                "Este certificado possui vínculos restritos e não pode ser deletado."
+            )
 
-            return redirect(self.success_url)
+        except Exception:
+            messages.error(
+                request,
+                "Ocorreu um erro ao tentar deletar o certificado."
+            )
+
+        return redirect(self.success_url)
 
 
 # ===================================== SKILLS =====================================
@@ -255,11 +247,15 @@ class ProfileSkillUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
         """Permite editar apenas skills pertencentes ao usuário logado."""
         return ProfileSkill.objects.filter(profile=self.request.user.profile)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["profile"] = self.request.user.profile
+        return kwargs
+
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.profile = self.request.user.profile  # segurança extra
         instance.save()
-
         messages.success(self.request, "Habilidade atualizada com sucesso!")
         return redirect(self.success_url)
 

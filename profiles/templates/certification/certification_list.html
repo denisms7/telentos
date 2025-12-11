@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-12 col-md-3 align-self-end text-sm-center text-md-end">
-                <a class="btn btn-success" href="#">
+                <a class="btn btn-success" href="{% url 'profiles:certificados_add' %}">
                     <i class="bi bi-window-plus"></i>
                     Novo
                 </a>
@@ -103,15 +103,23 @@
                                     </a>
                                 {% endif %}
 
-                                <a class="btn btn-sm btn-info" href="#" title="Nenhum PDF disponível">
+                                <a class="btn btn-sm btn-info" href="{% url 'profiles:certificados_det' cert.pk %}" title="Detalhes">
                                     <i class="bi bi-search"></i>
                                 </a>
-                                <a class="btn btn-sm btn-danger" href="#" title="Nenhum PDF disponível">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+
+                                <button title="Deletar" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#delete-{{item.pk}}">
+                                    <i class="bi bi-trash3"></i> 
+                                </button>
 
                             </td>
                         </tr>
+
+
+
+
+                        {% include "certification\modal_delete.html" %}
+
+
                     {% empty %}
                         <tr>
                             <td colspan="6" class="text-muted text-center py-3">

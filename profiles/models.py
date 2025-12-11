@@ -49,7 +49,7 @@ class Certification(models.Model):
     institution = models.CharField("Instituição", max_length=200)
 
     workload = models.PositiveIntegerField(
-        "Carga Horária (horas)",
+        "Carga Horária",
         null=True,
         blank=True,
     )

@@ -19,7 +19,7 @@ class CertificationType(models.TextChoices):
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name="Usuário", on_delete=models.CASCADE, related_name="profile", unique=True,)
     position = models.CharField(verbose_name="Cargo", max_length=150, blank=True,)
-    registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True,)
+    registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True, unique=True,)
     admission_date = models.DateField(verbose_name="Admissão", blank=True, null=True,)
 
     def __str__(self):

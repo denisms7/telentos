@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Certificações
+{% endblock title %}
+
+{% block content %}
+
+    {% include "menu.html" %}
+
+    <h2><i class="bi bi-mortarboard me-1"></i>Certificações</h2>
+
+    <form method="get" class="my-3">
+        <div class="row">
+            <div class="col-12 col-md-9">
+
+                <label class="form-label">Pesquisar:</label>
+
+                <div class="input-group">
+                    <select name="type" class="form-select">
+                        <option value="">Todos Tipos</option>
+                        {% for value, label in types %}
+                            <option value="{{ value }}"
+                                    {% if request.GET.type == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ request.GET.q }}"
+                        class="form-control"
+                        placeholder="Certificação ou Instituição"
+                    >
+
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                    {# BOTÃO LIMPAR #}
+                    {% if request.GET.q or request.GET.type %}
+                        <a href="{% url 'profiles:certificados' %}" class="btn btn-warning" title="Limpar filtros">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-12 col-md-3 align-self-end text-sm-center text-md-end">
+                <a class="btn btn-success" href="#">
+                    <i class="bi bi-window-plus"></i>
+                    Novo
+                </a>
+            </div>
+        </div>
+    </form>
+
+
+    {% if certifications %}
+        <div class="table-responsive">
+            <table class="table table-sm align-middle table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Data:</th>
+                        <th scope="col">Tipo:</th>
+                        <th scope="col">Instituição:</th>
+                        <th scope="col">Certificação:</th>
+                        <th scope="col">CH:</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in certifications %}
+                        <tr>
+                            <td>{{ cert.issue_date }}</td>
+                            <td>{{ cert.get_certification_type_display }}</td>
+                            <td>{{ cert.institution }}</td>
+                            <td>{{ cert.name }}</td>
+                            <td>{{ cert.workload|default:"" }}</td>
+                            <td class="text-end">
+
+                                {% if cert.file %}
+                                    <a class="btn btn-sm btn-primary"
+                                       href="{{ cert.file.url }}"
+                                       target="_blank"
+                                       title="Visualizar PDF">
+                                        <i class="bi bi-file-earmark-pdf"></i>
+                                    </a>
+                                {% elif cert.link %}
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       href="{{ cert.link }}"
+                                       target="_blank"
+                                       title="Acessar link do certificado">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="btn btn-sm btn-primary disabled" href="#" tabindex="-1" aria-disabled="true" title="Nenhum PDF disponível">
+                                        <i class="bi bi-file-earmark-x"></i>
+                                    </a>
+                                {% endif %}
+
+                                <a class="btn btn-sm btn-info" href="#" title="Nenhum PDF disponível">
+                                    <i class="bi bi-search"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="#" title="Nenhum PDF disponível">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-muted text-center py-3">
+
+                                Nenhuma certificação cadastrada.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center my-4">
+            <div class="col-12 col-md-6 mx-auto">
+                <div class="alert alert-info d-flex justify-content-center align-items-center gap-2" role="alert">
+                    <span>Nenhuma certificação cadastrada.</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% include "pagination.html" %}
+
+
+{% endblock content %}

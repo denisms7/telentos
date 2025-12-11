@@ -14,8 +14,8 @@ from django.views.generic import (
 )
 
 
-from .models import Profile, Certification, CertificationType
-from .models import ProfileSkill, SkillLevel
+from .models import Profile, Certification, CertificationType, ProfileSkill, SkillLevel
+from skills.models import SkillType
 
 from .forms import CertificationForm, CertificationDetail_ModelForm
 from .forms import ProfileSkillForm, ProfileSkillDetailForm
@@ -162,6 +162,8 @@ class CertificationDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delet
 
 
 # ================================ SKILLS ================================
+
+
 class ProfileSkillListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "skills/skill_list.html"
     context_object_name = "skills"
@@ -182,20 +184,30 @@ class ProfileSkillListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
         if level:
             queryset = queryset.filter(level=level)
 
+        skill_type = self.request.GET.get("skill_type")
+        if skill_type:
+            queryset = queryset.filter(skill__skill_type=skill_type)
+
         return queryset.order_by("order", "skill__name")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context["levels"] = SkillLevel.choices
+        context["skill_types"] = SkillType.choices
 
         params = self.request.GET.copy()
-        if "page" in params:
-            params.pop("page")
+        params.pop("page", None)
 
         context["querystring"] = params.urlencode()
 
         return context
+
+
+
+
+
+
 
 
 class ProfileSkillCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

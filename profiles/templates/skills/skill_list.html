@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    Certificações
+    Habilidades
 {% endblock title %}
 
 {% block content %}
@@ -15,25 +15,39 @@
         <div class="row">
             <div class="col-12 col-md-9">
 
-                <label class="form-label">Pesquisar:</label>
+                <label class="form-label">Filtros:</label>
 
                 <div class="input-group">
-                    <select name="type" class="form-select">
-                        <option value="">Todos Tipos</option>
-                        {% for value, label in types %}
+
+                    {# FILTRO POR NÍVEL #}
+                    <select name="level" class="form-select">
+                        <option value="">Todos Níveis</option>
+                        {% for value, label in levels %}
                             <option value="{{ value }}"
-                                    {% if request.GET.type == value %}selected{% endif %}>
+                                {% if request.GET.level == value %}selected{% endif %}>
                                 {{ label }}
                             </option>
                         {% endfor %}
                     </select>
 
+                    {# FILTRO POR TIPO DE SKILL #}
+                    <select name="skill_type" class="form-select">
+                        <option value="">Todos Tipos</option>
+                        {% for value, label in skill_types %}
+                            <option value="{{ value }}"
+                                {% if request.GET.skill_type == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    {# PESQUISA POR NOME #}
                     <input
                         type="text"
                         name="q"
                         value="{{ request.GET.q }}"
                         class="form-control"
-                        placeholder="Certificação ou Instituição"
+                        placeholder="Habilidade"
                     >
 
                     <button class="btn btn-primary" type="submit">
@@ -41,17 +55,17 @@
                     </button>
 
                     {# BOTÃO LIMPAR #}
-                    {% if request.GET.q or request.GET.type %}
-                        <a href="{% url 'profiles:certificados' %}" class="btn btn-warning" title="Limpar filtros">
+                    {% if request.GET.q or request.GET.level or request.GET.skill_type %}
+                        <a href="{% url 'profiles:habilidades_list' %}" class="btn btn-warning" title="Limpar filtros">
                             <i class="bi bi-x-lg"></i>
                         </a>
                     {% endif %}
-
                 </div>
+
             </div>
 
             <div class="col-12 col-md-3 align-self-end text-sm-center text-md-end">
-                <a class="btn btn-success" href="{% url 'profiles:certificados_add' %}">
+                <a class="btn btn-success" href="{% url 'profiles:habilidades_create' %}">
                     <i class="bi bi-window-plus"></i>
                     Novo
                 </a>
@@ -59,61 +73,46 @@
         </div>
     </form>
 
-
-    {% if certifications %}
+    {% if skills %}
         <div class="table-responsive">
             <table class="table table-sm align-middle table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Habilidades:</th>
-                        <th scope="col">Nivel:</th>
-                        <th scope="col">Experiencia:</th>
-                        <th scope="col"></th>
+                        <th>Habilidade</th>
+                        <th>Tipo</th>
+                        <th>Nível</th>
+                        <th>Experiência (anos)</th>
+                        <th class="text-end"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for skill in skills %}
                         <tr>
-                            <td>{{ skill.skill }}</td>
-                            <td>{{ skill.level }}</td>
+                            <td>{{ skill.skill.name }}</td>
+                            <td>{{ skill.skill.get_skill_type_display }}</td>
+                            <td>{{ skill.get_level_display }}</td>
                             <td>{{ skill.years_experience }}</td>
-                            <td class="text-end">
-                                {% if skill.file %}
-                                    <a class="btn btn-sm btn-primary"
-                                       href="{{ skill.file.url }}"
-                                       target="_blank"
-                                       title="Visualizar PDF">
-                                        <i class="bi bi-file-earmark-pdf"></i>
-                                    </a>
-                                {% elif skill.link %}
-                                    <a class="btn btn-sm btn-outline-primary"
-                                       href="{{ skill.link }}"
-                                       target="_blank"
-                                       title="Acessar link do certificado">
-                                        <i class="bi bi-box-arrow-up-right"></i>
-                                    </a>
-                                {% else %}
-                                    <a class="btn btn-sm btn-primary disabled" href="#" tabindex="-1" aria-disabled="true" title="Nenhum PDF disponível">
-                                        <i class="bi bi-file-earmark-x"></i>
-                                    </a>
-                                {% endif %}
 
-                                <a class="btn btn-sm btn-info" href="{% url 'profiles:certificados_det' cert.pk %}" title="Detalhes">
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-info"
+                                   href="{% url 'profiles:skill_detail' skill.pk %}"
+                                   title="Detalhes">
                                     <i class="bi bi-search"></i>
                                 </a>
 
-                                <button title="Deletar" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#delete-{{item.pk}}">
-                                    <i class="bi bi-trash3"></i> 
+                                <button class="btn btn-sm btn-danger"
+                                        title="Excluir"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#delete-{{ skill.pk }}">
+                                    <i class="bi bi-trash3"></i>
                                 </button>
-
                             </td>
                         </tr>
 
-                        {% include "certification\modal_delete.html" %}
-
+                        {% include "skills/modal_delete.html" with skill=skill %}
                     {% empty %}
                         <tr>
-                            <td colspan="6" class="text-muted text-center py-3">
+                            <td colspan="5" class="text-muted text-center py-3">
                                 Nenhuma habilidade cadastrada.
                             </td>
                         </tr>
@@ -121,6 +120,7 @@
                 </tbody>
             </table>
         </div>
+
     {% else %}
         <div class="text-center my-4">
             <div class="col-12 col-md-6 mx-auto">
@@ -131,8 +131,6 @@
         </div>
     {% endif %}
 
-
     {% include "pagination.html" %}
-
 
 {% endblock content %}

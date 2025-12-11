@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from skills.models import Skill, SkillLevel
+from skills.models import Skill, SkillLevel, System
 
 
 class CertificationType(models.TextChoices):
@@ -103,3 +103,38 @@ class ProfileSkill(models.Model):
 
     def __str__(self):
         return f"{self.skill} - {self.get_level_display()}"
+
+
+
+
+class ProfileSystem(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="systems",
+        verbose_name="Perfil",
+    )
+    system = models.ForeignKey(
+        System,
+        on_delete=models.CASCADE,
+        related_name="profiles",
+        verbose_name="Sistema",
+    )
+    access_level = models.CharField(
+        "Nível de Acesso",
+        max_length=50,
+        blank=True,
+    )
+    notes = models.TextField(
+        "Observações",
+        blank=True,
+    )
+
+    class Meta:
+        unique_together = ("profile", "system")
+        verbose_name = "Sistema do Perfil"
+        verbose_name_plural = "Sistemas por Perfil"
+        ordering = ("profile", "system")
+
+    def __str__(self):
+        return f"{self.profile} → {self.system}"

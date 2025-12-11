@@ -13,13 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       aria-current="page"
-                       href="{% url 'profiles:home' %}">
-                        Servidores
-                    </a>
-                </li>
+
 
                 <!-- MENU PERFIL -->
                 <li class="nav-item dropdown">
@@ -28,14 +22,14 @@
                        role="button"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Meu Perfil
+                        Editar
                     </a>
 
                     <ul class="dropdown-menu">
 
                         <li>
                             <a class="dropdown-item" href="">
-                                ✏️ Editar Perfil
+                                👤 Perfil
                             </a>
                         </li>
 
@@ -44,23 +38,38 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="">
-                                🧠 Adicionar Habilidade
+                            <a class="dropdown-item" href="{% url 'profiles:habilidades_list' %}">
+                                🧠 Habilidades
                             </a>
                         </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
                         <li>
                             <a class="dropdown-item" href="{% url 'profiles:certificados_list' %}">
                                 📜 Certificados
                             </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="">
+                                🖥️ Sistemas
+                            </a>
+                        </li>
                     </ul>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       aria-current="page"
+                       href="{% url 'profiles:home' %}">
+                        Servidores
+                    </a>
+                </li>
+
+
+
             </ul>
+
+
+
+
 
             <!-- LADO DIREITO -->
             <form class="d-flex" role="search">

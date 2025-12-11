@@ -22,7 +22,7 @@
 
     {% include "menu.html" %}
 
-    <h2><i class="bi bi-person"></i>Meu Perfil</h2>
+    <h2>👤 Meu Perfil</h2>
 
     <p>
         <strong>Usuário:</strong> {{ user.username }}
@@ -35,7 +35,7 @@
 
     <hr>
 
-    <h2><i class="bi bi-cpu me-1"></i>Habilidades</h2>
+    <h2>🧠 Habilidades</h2>
     <div class="row g-1">
         {% for skill in object.skills.all %}
 
@@ -70,7 +70,7 @@
 
     <hr>
 
-    <h2><i class="bi bi-mortarboard me-1"></i>Certificações</h2>
+    <h2>📜 Certificações</h2>
 
     {% if object.certifications.all %}
 
@@ -134,4 +134,65 @@
             <p class="small">Nenhuma certificação cadastrada.</p>
         </div>
     {% endif %}
+
+
+
+    <hr>
+
+    <h2>🖥️ Sistemas</h2>
+
+
+<div class="g-1">
+    {% for sys in object.systems.all %}
+
+        <div class="card shadow-sm" style="width: fit-content; display: inline-block; margin: 4px;">
+            <div class="card-body p-2 text-center">
+                <h6 class="card-title mb-1">{{ sys.system.name }}</h6>
+            </div>
+        </div>
+
+    {% empty %}
+        <p class="small">Nenhuma habilidade em sistema cadastrada.</p>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <hr>
+
+    <h2>🧩 Banco de Talentos</h2>
+    <div class="">
+        <p class="lead">
+            A criação de um Banco de Talentos é fundamental para otimizar a gestão de pessoas e fortalecer a estratégia organizacional. Ele mantém um registro estruturado e atualizado de profissionais com diferentes habilidades, formações e experiências, facilitando a identificação rápida de talentos para oportunidades internas e demandas futuras.
+        </p>
+        <h4>Contribuições principais</h4>
+        <ul>
+            <li><strong>Agilidade no recrutamento e seleção:</strong> reduz tempo e custos ao possuir um conjunto qualificado de candidatos.</li>
+            <li><strong>Aproveitamento de competências internas:</strong> identifica colaboradores aptos para novos projetos, promoções ou realocações.</li>
+            <li><strong>Planejamento de sucessão e desenvolvimento:</strong> permite identificar lacunas e direcionar treinamentos focados.</li>
+            <li><strong>Transparência e equidade:</strong> amplia a visibilidade das oportunidades e assegura consideração baseada em dados.</li>
+            <li><strong>Fortalecimento da cultura organizacional:</strong> valoriza habilidades e estimula o crescimento profissional.</li>
+        </ul>
+        <p>
+            Em resumo, o Banco de Talentos atua como uma ferramenta estratégica que aumenta a eficiência dos processos de gestão de pessoas, apoia decisões mais assertivas e contribui para resultados organizacionais sustentáveis.
+        </p>
+    </div>
+
+
+
+
+
 {% endblock content %}

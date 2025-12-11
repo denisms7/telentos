@@ -9,7 +9,7 @@
 
     {% include "menu.html" %}
 
-    <h2>📜 Certificações</h2>
+    <h2>🧠 Habilidades</h2>
 
     <form method="get" class="my-3">
         <div class="row">
@@ -65,34 +65,29 @@
             <table class="table table-sm align-middle table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Data:</th>
-                        <th scope="col">Tipo:</th>
-                        <th scope="col">Instituição:</th>
-                        <th scope="col">Certificação:</th>
-                        <th scope="col">CH:</th>
+                        <th scope="col">Habilidades:</th>
+                        <th scope="col">Nivel:</th>
+                        <th scope="col">Experiencia:</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for cert in certifications %}
+                    {% for skill in skills %}
                         <tr>
-                            <td>{{ cert.issue_date }}</td>
-                            <td>{{ cert.get_certification_type_display }}</td>
-                            <td>{{ cert.institution }}</td>
-                            <td>{{ cert.name }}</td>
-                            <td>{{ cert.workload|default:"" }}</td>
+                            <td>{{ skill.skill }}</td>
+                            <td>{{ skill.level }}</td>
+                            <td>{{ skill.years_experience }}</td>
                             <td class="text-end">
-
-                                {% if cert.file %}
+                                {% if skill.file %}
                                     <a class="btn btn-sm btn-primary"
-                                       href="{{ cert.file.url }}"
+                                       href="{{ skill.file.url }}"
                                        target="_blank"
                                        title="Visualizar PDF">
                                         <i class="bi bi-file-earmark-pdf"></i>
                                     </a>
-                                {% elif cert.link %}
+                                {% elif skill.link %}
                                     <a class="btn btn-sm btn-outline-primary"
-                                       href="{{ cert.link }}"
+                                       href="{{ skill.link }}"
                                        target="_blank"
                                        title="Acessar link do certificado">
                                         <i class="bi bi-box-arrow-up-right"></i>
@@ -114,17 +109,12 @@
                             </td>
                         </tr>
 
-
-
-
                         {% include "certification\modal_delete.html" %}
-
 
                     {% empty %}
                         <tr>
                             <td colspan="6" class="text-muted text-center py-3">
-
-                                Nenhuma certificação cadastrada.
+                                Nenhuma habilidade cadastrada.
                             </td>
                         </tr>
                     {% endfor %}
@@ -135,7 +125,7 @@
         <div class="text-center my-4">
             <div class="col-12 col-md-6 mx-auto">
                 <div class="alert alert-info d-flex justify-content-center align-items-center gap-2" role="alert">
-                    <span>Nenhuma certificação cadastrada.</span>
+                    <span>Nenhuma habilidade cadastrada.</span>
                 </div>
             </div>
         </div>

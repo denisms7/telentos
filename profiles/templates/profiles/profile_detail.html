@@ -93,7 +93,7 @@
                             <td>{{ cert.get_certification_type_display }}</td>
                             <td>{{ cert.institution }}</td>
                             <td>{{ cert.name }}</td>
-                            <td>{{ cert.workload }}</td>
+                            <td>{{ cert.workload|default:"" }}</td>
                             <td class="text-end">
                                 {% if cert.file %}
                                     <a class="btn btn-sm btn-primary"

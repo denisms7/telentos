@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
+from .models import Profile, Certification, CertificationType
 from django.views.generic import (
     DetailView,
     CreateView,
@@ -8,8 +9,6 @@ from django.views.generic import (
     ListView,
     TemplateView,
 )
-
-from .models import Profile, Certification, CertificationType
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
@@ -38,8 +37,7 @@ class CertificationListView(LoginRequiredMixin, ListView):
         q = self.request.GET.get("q")
         if q:
             queryset = queryset.filter(
-                Q(name__icontains=q) |
-                Q(institution__icontains=q)
+                Q(name__icontains=q) | Q(institution__icontains=q)
             )
 
         cert_type = self.request.GET.get("type")

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import UsuarioEdit, UsuarioDetailView, alterar_usuario, AcessoNegadoView, CustomPasswordResetCompleteView
 
@@ -33,6 +33,4 @@ urlpatterns = [
         CustomPasswordResetCompleteView.as_view(),
         name='password_reset_complete'
     ),
-
-
 ]

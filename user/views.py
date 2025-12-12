@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView
 from django.views.generic import DetailView, TemplateView
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import UsuarioSenhaForm, Usuario_UserForm
 from django.contrib.auth import views as auth_views
-
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class UsuarioEdit(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -28,6 +28,7 @@ class UsuarioEdit(LoginRequiredMixin, UpdateView):
         update_session_auth_hash(self.request, user)
         messages.success(self.request, 'Sua senha foi alterada com sucesso!')
         return super().form_valid(form)
+
 
 class UsuarioDetailView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('login')
@@ -70,15 +71,7 @@ class AcessoNegadoView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/acesso_negado.html'
 
 
-
 class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     def get(self, request, *args, **kwargs):
         messages.success(request, "Senha redefinida com sucesso! Faça login com a nova senha.")
         return redirect(reverse_lazy("login"))
-    
-
-
-
-
-
-    

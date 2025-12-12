@@ -24,14 +24,14 @@ class UsuarioSenhaForm(forms.ModelForm):
         if not self.instance.check_password(password_antiga):
             raise forms.ValidationError("A senha antiga está incorreta.")
         return password_antiga
-    
-    
+
+
 class Usuario_UserForm(UserChangeForm):
     class Meta:
         model = User
         fields = (
-            'first_name', 
-            'last_name', 
-            'email', 
-            'username', 
-            )  # Campos que podem ser alterados
+            'first_name',
+            'last_name',
+            'email',
+            'username',
+        )

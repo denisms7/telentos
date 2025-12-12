@@ -9,7 +9,7 @@ from .models import Certification, CertificationType, ProfileSkill, SkillLevel, 
 from skills.models import SkillType
 from .forms import CertificationForm, CertificationDetail_ModelForm
 from .forms import ProfileSkillForm, ProfileSkillDetailForm, ProfileForm
-from .forms import ProfileSystemForm , ProfileSystemDetailForm
+from .forms import ProfileSystemForm, ProfileSystemDetailForm
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -27,7 +27,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class PublicProfileListView(ListView):
+class PublicProfileListView(LoginRequiredMixin, ListView):
     model = Profile
     template_name = "profiles/profiles/profile_list.html"
     context_object_name = "profiles"
@@ -37,7 +37,7 @@ class PublicProfileListView(ListView):
         queryset = Profile.objects.filter(
             public=True,
             user__is_active=True,
-            ).select_related("user")
+        ).select_related("user")
 
         query = self.request.GET.get("q", "").strip()
 
@@ -62,7 +62,6 @@ class ProfilePublicDetailView(DetailView):
             messages.error(self.request, "Este perfil não é público.")
             return redirect(reverse_lazy("home"))
         return profile
-
 
 
 class CertificationListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

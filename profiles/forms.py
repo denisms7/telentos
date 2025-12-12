@@ -1,5 +1,5 @@
 from django import forms
-from .models import ProfileSkill, Certification, Profile, ProfileSystem, System
+from .models import ProfileSkill, Certification, Profile, ProfileSystem
 
 
 class ProfileForm(forms.ModelForm):
@@ -108,10 +108,10 @@ class ProfileSystemForm(forms.ModelForm):
     class Meta:
         model = ProfileSystem
         fields = [
-            "system", 
-            "level", 
+            "system",
+            "level",
             "notes"
-            ]
+        ]
 
     def clean(self):
         cleaned_data = super().clean()

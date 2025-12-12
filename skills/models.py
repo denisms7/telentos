@@ -48,7 +48,7 @@ class Function(models.Model):
     created_at = models.DateTimeField("Criação", auto_now_add=True)
     active = models.BooleanField("Ativo", default=True,)
     name = models.CharField(max_length=100, verbose_name='Nome do Cargo')
-    description = RichTextField(max_length=10000, verbose_name='Atribuições Basicas')  
+    description = RichTextField(max_length=10000, verbose_name='Atribuições Basicas')
 
     class Meta:
         verbose_name = "Cargo"

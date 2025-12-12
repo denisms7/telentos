@@ -1,9 +1,5 @@
 from django.contrib import admin
-from .models import (
-    Skill,
-    System,
-    Function,
-)
+from .models import Skill, System, Function
 
 
 @admin.register(Skill)
@@ -32,4 +28,3 @@ class FunctionAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
     readonly_fields = ("created_at",)
-

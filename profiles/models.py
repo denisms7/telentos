@@ -69,30 +69,16 @@ class Certification(models.Model):
 
 
 class ProfileSkill(models.Model):
-    profile = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE,
-        related_name="skills",
-    )
-    skill = models.ForeignKey(
-        Skill,
-        on_delete=models.CASCADE,
-        related_name="profiles",
-        verbose_name="Habilidade",
-    )
-    level = models.IntegerField(
-        choices=SkillLevel.choices,
-        verbose_name="Nível",
-        default=SkillLevel.BASIC
-    )
-    notes = models.TextField(
-        "Observações",
-        blank=True,
-    )
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="skills",)
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name="profiles", verbose_name="Habilidade",)
+    level = models.IntegerField(choices=SkillLevel.choices, verbose_name="Nível", default=SkillLevel.BASIC)
+    notes = models.TextField("Observações", blank=True,)
 
     class Meta:
         unique_together = ("profile", "skill")
-        ordering = ("profile", "skill")
+        verbose_name = "Habilidade do Perfil"
+        verbose_name_plural = "Habilidades por Perfil"
+        ordering = ("-level", "skill")
 
     def __str__(self):
         return f"{self.skill} - {self.get_level_display()}"
@@ -100,27 +86,15 @@ class ProfileSkill(models.Model):
 
 class ProfileSystem(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="systems", verbose_name="Perfil",)
-    system = models.ForeignKey(
-        System,
-        on_delete=models.CASCADE,
-        related_name="profiles",
-        verbose_name="Sistema",
-    )
-    level = models.IntegerField(
-        choices=SkillLevel.choices,
-        verbose_name="Nível",
-        default=SkillLevel.BASIC
-    )
-    notes = models.TextField(
-        "Observações",
-        blank=True,
-    )
+    system = models.ForeignKey(System, on_delete=models.CASCADE, related_name="profiles", verbose_name="Sistema",)
+    level = models.IntegerField(choices=SkillLevel.choices, verbose_name="Nível", default=SkillLevel.BASIC)
+    notes = models.TextField("Observações", blank=True,)
 
     class Meta:
         unique_together = ("profile", "system")
         verbose_name = "Sistema do Perfil"
         verbose_name_plural = "Sistemas por Perfil"
-        ordering = ("profile", "system")
+        ordering = ("-level", "system")
 
     def __str__(self):
-        return f"{self.profile} → {self.system}"
+        return f"{self.system} - {self.get_level_display()}"

@@ -19,7 +19,7 @@ class UsuarioEdit(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('index')
 
     def get_object(self, queryset=None):
-            return self.request.user
+        return self.request.user
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -60,7 +60,7 @@ def alterar_usuario(request):
             return redirect('alterar_usuario')
     else:
         form = Usuario_UserForm(instance=request.user)
-    
+
     context = {
         'form': form
     }

@@ -29,8 +29,5 @@ urlpatterns = [
     ), name='password_reset_confirm'),
 
     # Redefinição concluída
-    path('reset_password_complete/',
-        CustomPasswordResetCompleteView.as_view(),
-        name='password_reset_complete'
-    ),
+    path('reset_password_complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

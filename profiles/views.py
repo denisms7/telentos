@@ -43,9 +43,7 @@ class PublicProfileListView(LoginRequiredMixin, ListView):
 
         if query:
             queryset = queryset.filter(
-                Q(user__first_name__icontains=query)
-                | Q(user__last_name__icontains=query)
-                | Q(user__username__icontains=query)
+                Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query) | Q(user__username__icontains=query)
             )
 
         return queryset.order_by("user__first_name", "user__last_name")

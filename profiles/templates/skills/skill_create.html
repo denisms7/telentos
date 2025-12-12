@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-md-2 mb-3">
+            <div class="col-sm-6 col-md-4 mb-3">
                 <label for="{{ form.level.id_for_label }}" class="form-label">{{ form.level.label }}: {% if form.level.field.required %}<span class="text-danger">*</span>{% endif %}</label>
                 {% render_field form.level class="form-select" %}
                 {% for error in form.level.errors %}
@@ -37,15 +37,15 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-md-2 mb-3">
-                <label for="{{ form.years_experience.id_for_label }}" class="form-label">{{ form.years_experience.label }}: {% if form.years_experience.field.required %}<span class="text-danger">*</span>{% endif %}</label>
-                {% render_field form.years_experience class="form-control" %}
-                {% for error in form.years_experience.errors %}
+            <!-- Observações -->
+            <div class="col-12 mb-3">
+                <label for="{{ form.notes.id_for_label }}" class="form-label">
+                    {{ form.notes.label }}:
+                </label>
+                {% render_field form.notes class="form-control" rows="3" %}
+                {% for error in form.notes.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-                <div class="invalid-feedback">
-                    Este campo é obrigatório
-                </div>
             </div>
 
             <div class="col-12 mb-3">

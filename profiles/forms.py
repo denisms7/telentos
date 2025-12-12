@@ -62,11 +62,8 @@ class ProfileSkillForm(forms.ModelForm):
         fields = [
             "skill",
             "level",
+            "notes",
         ]
-        widgets = {
-            "skill": forms.Select(attrs={"class": "form-select"}),
-            "level": forms.Select(attrs={"class": "form-select"}),
-        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -93,6 +90,7 @@ class ProfileSkillDetailForm(forms.ModelForm):
         fields = [
             "skill",
             "level",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -102,7 +100,6 @@ class ProfileSkillDetailForm(forms.ModelForm):
             field.disabled = True
 
 
-
 class ProfileSystemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.profile = kwargs.pop("profile", None)
@@ -110,12 +107,11 @@ class ProfileSystemForm(forms.ModelForm):
 
     class Meta:
         model = ProfileSystem
-        fields = ["system", "level", "notes"]
-        widgets = {
-            "system": forms.Select(attrs={"class": "form-select"}),
-            "level": forms.Select(attrs={"class": "form-select"}),
-            "notes": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
-        }
+        fields = [
+            "system", 
+            "level", 
+            "notes"
+            ]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -133,9 +129,6 @@ class ProfileSystemForm(forms.ModelForm):
             )
 
         return cleaned_data
-
-
-
 
 
 class ProfileSystemDetailForm(forms.ModelForm):

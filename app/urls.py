@@ -7,7 +7,7 @@ from .views import ProfileDetailView, HomeDetailView
 
 urlpatterns = [
 
-    path("", HomeDetailView.as_view(), name="apresentacao"),
+    path("", HomeDetailView.as_view(), name="index"),
     path("inicio/", ProfileDetailView.as_view(), name="home"),
 
     path('admin/', admin.site.urls),

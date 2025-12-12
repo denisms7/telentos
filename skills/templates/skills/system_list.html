@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Sistemas Disponíveis{% endblock title %}
+
+{% block content %}
+
+<h2>🖥️ Sistemas Disponíveis</h2>
+
+<p class="lead">
+    Esta seção apresenta os sistemas utilizados pelo município. Caso você possua conhecimento ou domínio em algum deles, é possível registrá-los como habilidades no seu perfil.
+</p>
+
+<form method="get" class="my-4">
+    <div class="row mb-3">
+        <div class="col-12 col-sm-12 col-md-6">
+            <label class="form-label">Pesquisar:</label>
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control"
+                    placeholder="Buscar por nome ou descrição..."
+                    value="{{ request.GET.q }}"
+                >
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if systems %}
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Nome do Sistema</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for system in systems %}
+                    <tr>
+                        <td>{{ system.name }}</td>
+                        <td>{{ system.description|default:"Sem descrição" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="text-center my-4">
+        <div class="col-12 col-md-6 mx-auto">
+            <div class="alert alert-info d-flex justify-content-center align-items-center gap-2" role="alert">
+                <span>Nenhum sistema encontrado.</span>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% include "pagination.html" %}
+
+{% endblock content %}

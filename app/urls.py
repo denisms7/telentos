@@ -14,6 +14,8 @@ urlpatterns = [
     # auth / accounts
     path("accounts/", include("user.urls")),
 
+    path("skills/", include("skills.urls")),
+
     # profiles
     path("", include("profiles.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Telentos{% endblock title %}
+
+{% block content %}
+
+{% include "menu.html" %}
+
+<div class="container mt-5">
+    <div class="row align-items-center g-4">
+
+        <!-- Imagem -->
+        <div class="col-md-6">
+            <div class="border-0">
+                <img src="{% static 'img/brasao.png' %}" class="img-fluid" alt="Brasão">
+            </div>
+        </div>
+
+        <!-- Texto -->
+        <div class="col-md-6">
+            <section>
+                <h2 class="mb-4 fw-bold d-flex align-items-center">
+                    <span class="me-2">🧩</span> Banco de Talentos
+                </h2>
+
+                <p class="lead">
+                    O Banco de Talentos é fundamental para otimizar a gestão de pessoas e fortalecer a estratégia organizacional. Ele mantém um registro estruturado e atualizado de profissionais com diferentes habilidades, formações e experiências.
+                </p>
+
+                <h4 class="fw-semibold mt-4">Contribuições principais</h4>
+
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item">
+                        <strong>Agilidade no recrutamento e seleção:</strong>
+                        reduz tempo e custos ao possuir um conjunto qualificado de candidatos.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Aproveitamento de competências internas:</strong>
+                        identifica colaboradores aptos para novos projetos, promoções ou realocações.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Planejamento de sucessão e desenvolvimento:</strong>
+                        permite identificar lacunas e direcionar treinamentos focados.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Transparência e equidade:</strong>
+                        amplia a visibilidade das oportunidades e assegura consideração baseada em dados.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Fortalecimento da cultura organizacional:</strong>
+                        valoriza habilidades e estimula o crescimento profissional.
+                    </li>
+                </ul>
+
+                <p class="text-muted">
+                    Em resumo, o Banco de Talentos atua como uma ferramenta estratégica que aumenta a eficiência dos processos de gestão de pessoas, apoia decisões mais assertivas e contribui para resultados organizacionais sustentáveis.
+                </p>
+            </section>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

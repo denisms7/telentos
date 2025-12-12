@@ -2,16 +2,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from .views import ProfileDetailView
+from .views import ProfileDetailView, HomeDetailView
 
 
 urlpatterns = [
 
-    path("", ProfileDetailView.as_view(), name="home"),
+    path("", HomeDetailView.as_view(), name="apresentacao"),
+    path("inicio/", ProfileDetailView.as_view(), name="home"),
 
     path('admin/', admin.site.urls),
     # auth / accounts
-    path("", include("accounts.urls")),
+    path("accounts/", include("accounts.urls")),
 
     # profiles
     path("", include("profiles.urls")),

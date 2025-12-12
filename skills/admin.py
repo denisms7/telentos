@@ -11,18 +11,18 @@ class SkillAdmin(admin.ModelAdmin):
     list_display = ("name", "skill_type")
     list_filter = ("skill_type",)
     search_fields = ("name",)
+    readonly_fields = ("created_at",)
 
 
 @admin.register(System)
 class SystemAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "owner_sector",
         "active",
         "created_at",
     )
-    list_filter = ("active", "owner_sector")
-    search_fields = ("name", "description", "owner_sector")
+    list_filter = ("active",)
+    search_fields = ("name", "description",)
     ordering = ("name",)
     readonly_fields = ("created_at",)
 
@@ -31,4 +31,5 @@ class SystemAdmin(admin.ModelAdmin):
 class FunctionAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
+    readonly_fields = ("created_at",)
 

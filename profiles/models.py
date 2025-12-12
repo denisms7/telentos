@@ -29,13 +29,7 @@ class Profile(models.Model):
 
 
 class Certification(models.Model):
-    profile = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE,
-        related_name="certifications",
-        verbose_name="Perfil",
-    )
-
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="certifications", verbose_name="Perfil",)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Cadastro")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Alteração")
 
@@ -48,13 +42,7 @@ class Certification(models.Model):
 
     name = models.CharField("Nome da Certificação", max_length=200)
     institution = models.CharField("Instituição", max_length=200)
-
-    workload = models.PositiveIntegerField(
-        "Carga Horária",
-        null=True,
-        blank=True,
-    )
-
+    workload = models.PositiveIntegerField("Carga Horária", null=True, blank=True,)
     issue_date = models.DateField("Data de Emissão")
 
     file = models.FileField(
@@ -97,27 +85,21 @@ class ProfileSkill(models.Model):
         verbose_name="Nível",
         default=SkillLevel.BASIC
     )
-    years_experience = models.PositiveSmallIntegerField(
-        verbose_name="Anos de Experiência",
-        default=0
+    notes = models.TextField(
+        "Observações",
+        blank=True,
     )
-    order = models.PositiveIntegerField(default=0)
 
     class Meta:
         unique_together = ("profile", "skill")
-        ordering = ("order",)
+        ordering = ("profile", "skill")
 
     def __str__(self):
         return f"{self.skill} - {self.get_level_display()}"
 
 
 class ProfileSystem(models.Model):
-    profile = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE,
-        related_name="systems",
-        verbose_name="Perfil",
-    )
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="systems", verbose_name="Perfil",)
     system = models.ForeignKey(
         System,
         on_delete=models.CASCADE,

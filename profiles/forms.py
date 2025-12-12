@@ -62,12 +62,10 @@ class ProfileSkillForm(forms.ModelForm):
         fields = [
             "skill",
             "level",
-            "years_experience",
         ]
         widgets = {
             "skill": forms.Select(attrs={"class": "form-select"}),
             "level": forms.Select(attrs={"class": "form-select"}),
-            "years_experience": forms.NumberInput(attrs={"class": "form-control", "min": 0}),
         }
 
     def clean(self):
@@ -95,7 +93,6 @@ class ProfileSkillDetailForm(forms.ModelForm):
         fields = [
             "skill",
             "level",
-            "years_experience",
         ]
 
     def __init__(self, *args, **kwargs):

@@ -214,7 +214,7 @@ class ProfileSkillListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
         if skill_type:
             queryset = queryset.filter(skill__skill_type=skill_type)
 
-        return queryset.order_by("order", "skill__name")
+        return queryset.order_by("skill__name")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

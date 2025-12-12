@@ -79,7 +79,7 @@
                         <th>Habilidade</th>
                         <th>Tipo</th>
                         <th>Nível</th>
-                        <th class="text-center">Experiência</th>
+                        <th>Observações</th>
                         <th class="text-end"></th>
                     </tr>
                 </thead>
@@ -89,7 +89,13 @@
                             <td>{{ skill.skill.name }}</td>
                             <td>{{ skill.skill.get_skill_type_display }}</td>
                             <td>{{ skill.get_level_display }}</td>
-                            <td class="text-center">{{ skill.years_experience }}</td>
+                            <td>
+                                {% if item.notes %}
+                                    {{ item.notes|truncatewords:12 }}
+                                {% else %}
+                                    <span class="text-secondary">—</span>
+                                {% endif %}
+                            </td>
                             <td class="text-end">
                                 <a class="btn btn-sm btn-info"
                                    href="{% url 'profiles:habilidades_detail' skill.pk %}"

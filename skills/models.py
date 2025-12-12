@@ -15,7 +15,8 @@ class SkillType(models.TextChoices):
 
 
 class Skill(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField("Criação", auto_now_add=True)
+    active = models.BooleanField("Ativo", default=True,)
     name = models.CharField(max_length=100)
     skill_type = models.CharField(max_length=10, choices=SkillType.choices,)
 
@@ -29,11 +30,10 @@ class Skill(models.Model):
 
 
 class System(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField("Criação", auto_now_add=True)
     active = models.BooleanField("Ativo", default=True,)
     name = models.CharField("Nome do Sistema", max_length=150, unique=True,)
     description = models.TextField("Descrição", blank=True,)
-    owner_sector = models.CharField("Setor Responsável", max_length=150, blank=True,)
 
     class Meta:
         verbose_name = "Sistema"
@@ -45,7 +45,8 @@ class System(models.Model):
 
 
 class Function(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField("Criação", auto_now_add=True)
+    active = models.BooleanField("Ativo", default=True,)
     name = models.CharField(max_length=100, verbose_name='Nome do Cargo')
     description = RichTextField(max_length=10000, verbose_name='Atribuições Basicas')  
 

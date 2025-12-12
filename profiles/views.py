@@ -15,7 +15,7 @@ from .forms import ProfileSystemForm , ProfileSystemDetailForm
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileForm
-    template_name = "profiles/profile_form.html"
+    template_name = "profiles/profiles/profile_form.html"
     success_url = reverse_lazy("profiles:perfil_edit")
 
     def get_object(self, queryset=None):
@@ -29,7 +29,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
 class PublicProfileListView(ListView):
     model = Profile
-    template_name = "profiles/profile_list.html"
+    template_name = "profiles/profiles/profile_list.html"
     context_object_name = "profiles"
     paginate_by = 20
 
@@ -53,7 +53,7 @@ class PublicProfileListView(ListView):
 
 class ProfilePublicDetailView(DetailView):
     model = Profile
-    template_name = "profiles/profile_public.html"
+    template_name = "profiles/profiles/profile_public.html"
 
     def get_object(self, queryset=None):
         profile = get_object_or_404(Profile, pk=self.kwargs["pk"])
@@ -66,7 +66,7 @@ class ProfilePublicDetailView(DetailView):
 
 
 class CertificationListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    template_name = "certification/certification_list.html"
+    template_name = "profiles/certification/certification_list.html"
     context_object_name = "certifications"
     permission_required = 'register.view_certification'
     paginate_by = 10
@@ -105,7 +105,7 @@ class CertificationListView(LoginRequiredMixin, PermissionRequiredMixin, ListVie
 class CertificationCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Certification
     form_class = CertificationForm
-    template_name = "certification/certification_create.html"
+    template_name = "profiles/certification/certification_create.html"
     success_url = reverse_lazy("profiles:certificados_list")
     permission_required = 'register.add_certification'
 
@@ -121,7 +121,7 @@ class CertificationCreateView(LoginRequiredMixin, PermissionRequiredMixin, Creat
 
 class CertificationDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Certification
-    template_name = "certification/certification_create.html"
+    template_name = "profiles/certification/certification_create.html"
     context_object_name = "certification"
     permission_required = 'register.view_certification'
 
@@ -135,7 +135,7 @@ class CertificationDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detai
 class CertificationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Certification
     form_class = CertificationForm
-    template_name = "certification/certification_create.html"  # ou certification_update.html
+    template_name = "profiles/certification/certification_create.html"  # ou certification_update.html
     context_object_name = "certification"
     success_url = reverse_lazy("profiles:certificados_list")
     permission_required = 'register.change_certification'
@@ -151,7 +151,7 @@ class CertificationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Updat
 
 class CertificationDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Certification
-    template_name = "certification/certification_delete.html"
+    template_name = "profiles/certification/certification_delete.html"
     context_object_name = "certification"
     success_url = reverse_lazy("profiles:certificados_list")
     permission_required = 'register.delete_certification'
@@ -191,7 +191,7 @@ class CertificationDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delet
 
 # ===================================== SKILLS =====================================
 class ProfileSkillListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    template_name = "skills/skill_list.html"
+    template_name = "profiles/skills/skill_list.html"
     context_object_name = "skills"
     paginate_by = 10
     permission_required = "register.view_profileskill"
@@ -233,7 +233,7 @@ class ProfileSkillListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
 class ProfileSkillCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProfileSkill
     form_class = ProfileSkillForm
-    template_name = "skills/skill_create.html"
+    template_name = "profiles/skills/skill_create.html"
     success_url = reverse_lazy("profiles:habilidades_list")
     permission_required = "register.add_profileskill"
 
@@ -259,7 +259,7 @@ class ProfileSkillCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
 
 class ProfileSkillDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProfileSkill
-    template_name = "skills/skill_create.html"
+    template_name = "profiles/skills/skill_create.html"
     context_object_name = "skill"
     permission_required = "register.view_profileskill"
 
@@ -278,7 +278,7 @@ class ProfileSkillDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detail
 class ProfileSkillUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ProfileSkill
     form_class = ProfileSkillForm
-    template_name = "skills/skill_create.html"
+    template_name = "profiles/skills/skill_create.html"
     context_object_name = "skill"
     success_url = reverse_lazy("profiles:habilidades_list")
     permission_required = "register.change_profileskill"
@@ -302,7 +302,7 @@ class ProfileSkillUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
 
 class ProfileSkillDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProfileSkill
-    template_name = "skills/profile_skill_delete.html"
+    template_name = "profiles/skills/profile_skill_delete.html"
     context_object_name = "skill"
     success_url = reverse_lazy("profiles:habilidades_list")
     permission_required = "register.delete_profileskill"
@@ -341,7 +341,7 @@ class ProfileSkillDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
 
 # ===================================== SYSTEMS =====================================
 class ProfileSystemListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    template_name = "systems/system_list.html"
+    template_name = "profiles/systems/system_list.html"
     context_object_name = "systems"
     paginate_by = 10
     permission_required = "register.view_profilesystem"
@@ -374,7 +374,7 @@ class ProfileSystemListView(LoginRequiredMixin, PermissionRequiredMixin, ListVie
 class ProfileSystemCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProfileSystem
     form_class = ProfileSystemForm
-    template_name = "systems/system_create.html"
+    template_name = "profiles/systems/system_create.html"
     success_url = reverse_lazy("profiles:sistemas_list")
     permission_required = "register.add_profilesystem"
 
@@ -398,7 +398,7 @@ class ProfileSystemCreateView(LoginRequiredMixin, PermissionRequiredMixin, Creat
 
 class ProfileSystemDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProfileSystem
-    template_name = "systems/system_create.html"
+    template_name = "profiles/systems/system_create.html"
     context_object_name = "system"
     permission_required = "register.view_profilesystem"
 
@@ -415,7 +415,7 @@ class ProfileSystemDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detai
 class ProfileSystemUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ProfileSystem
     form_class = ProfileSystemForm
-    template_name = "systems/system_create.html"
+    template_name = "profiles/systems/system_create.html"
     context_object_name = "system"
     success_url = reverse_lazy("profiles:sistemas_list")
     permission_required = "register.change_profilesystem"
@@ -439,7 +439,7 @@ class ProfileSystemUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Updat
 
 class ProfileSystemDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProfileSystem
-    template_name = "systems/profile_system_delete.html"
+    template_name = "profiles/systems/profile_system_delete.html"
     context_object_name = "system"
     success_url = reverse_lazy("profiles:sistemas_list")
     permission_required = "register.delete_profilesystem"

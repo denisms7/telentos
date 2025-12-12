@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+{% include "menu.html" %}
+{% include "alerts.html" %}  
+
+<div class="container">
+    <h1 class="mt-4">
+        Alterar Senha
+    </h1>
+    <hr>
+</div>
+
+
+
+<section>
+    <form action="" method="post" class="container" novalidate>
+
+        {% csrf_token %}
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 mb-3">
+            <label for="{{ form.password_antiga.id_for_label }}" class="form-label">Senha Atual: {% if form.password_antiga.field.required %}<span class="text-danger">*</span>{% endif %}</label>
+            {% render_field form.password_antiga class="form-control" %}
+            {% for error in form.password_antiga.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4 mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Nova Senha: {% if form.password.field.required %}<span class="text-danger">*</span>{% endif %}</label>
+            {% render_field form.password class="form-control" %}
+            {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 mb-3">
+            <label for="{{ form.password1.id_for_label }}" class="form-label">Confirme a Senha: {% if form.password1.field.required %}<span class="text-danger">*</span>{% endif %}</label>
+            {% render_field form.password1 class="form-control" %}
+            {% for error in form.password1.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <i class="bi bi-floppy"></i>
+        Alterar
+    </button>
+</form>
+</section>
+
+{% endblock content %}

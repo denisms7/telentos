@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     # auth / accounts
-    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("user.urls")),
 
     # profiles
     path("", include("profiles.urls")),

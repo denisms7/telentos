@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+{% include "menu.html" %}
+{% include "alerts.html" %}  
+
+<section>
+
+<div class="container text-center mt-5">
+    <div class="alert alert-danger shadow">
+        <h1>🚫 Acesso Negado</h1>
+        <p>Você não tem permissão para acessar esta página.</p>
+    </div>
+</div>
+
+
+</section>
+
+{% endblock content %}

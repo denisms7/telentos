@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+{% include "menu.html" %}
+{% include "alerts.html" %}  
+
+<div class="container">
+    <h1 class="mt-4">
+        Perfil
+    </h1>
+    <hr>
+</div>
+
+<div class="container">
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-4 mb-3">
+        <label for="#nome1" class="form-label fw-bold">Primeiro Nome:</label>
+        <div id="nome1" class="">{{ object.first_name }}</div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 mb-3">
+        <label for="#nome2" class="form-label fw-bold">Último Nome:</label>
+        <div id="nome2"class="">{{ object.last_name }}</div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 mb-3">
+        <label for="#email" class="form-label fw-bold">E-mail:</label>
+        <div id="email" class="">{{ object.email }}</div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-4 mb-3">
+        <label for="#registro" class="form-label fw-bold">Data de registro:</label>
+        <div id="registro" class="">{{ date_joined|date:"d/m/Y H:i" }}</div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-4 mb-3">
+        <label for="#ultimo_login" class="form-label fw-bold">Último login:</label>
+        <div id="ultimo_login" class="">{{ last_login|date:"d/m/Y H:i" }}</div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 mb-3">
+        <label for="#usuario" class="form-label fw-bold">Usuário:</label>
+        <div id="usuario" class="">{{ object.username }}</div>
+    </div>
+
+    <div class="col-12 mt-3">
+        <h2>
+            <i class="bi bi-person-vcard me-1"></i>Permissões 
+        </h2>
+        <hr>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-6 mb-3">
+        <label for="#permissoes" class="form-label fw-bold">Permissões do usuário:</label>
+        <div id="permissoes" class="">
+            {% if user_permissions %}
+                <ul class="mb-0 ps-3">
+                    {% for perm in user_permissions %}
+                        <li>{{ perm.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                Nenhuma permissão direta atribuída.
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-6 mb-3">
+        <label for="#grupos" class="form-label fw-bold">Grupos:</label>
+        <div id="grupos" class="">
+
+            <ul class="mb-0 ps-3">
+                <li>
+                    {% if user.is_superuser %}
+                    <i class="bi bi-hash"></i>
+                        SuperUsuário
+                    {% endif %}
+                </li>
+                {% for group in groups %}
+                    <li>{{ group }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+</div>
+{% endblock content %}

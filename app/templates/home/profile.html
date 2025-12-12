@@ -10,18 +10,27 @@
     <section class="mt-5">
         <h2 class="mb-3">👤 Meu Perfil</h2>
         <p class="mb-0">
-            <strong>Perfil Público:</strong>
+            <strong>Usuário:</strong> {{ user.username }}
+            <strong class="ms-3">Perfil Público:</strong>
             {% if object.public %}
                 <span class="badge bg-success">Público</span>
             {% else %}
                 <span class="badge bg-secondary">Privado</span>
             {% endif %}
             <br>
-            <strong>Usuário:</strong> {{ user.username }}
-            <strong class="ms-3">Cargo:</strong> {{ object.function|default:"Preencha o Perfil" }}<br>
             <strong>Admissão:</strong> {{ object.admission_date|date:"d/m/Y"|default:"Preencha o Perfil" }}
             <strong class="ms-3">Matrícula:</strong> {{ object.registration|default:"Preencha o Perfil" }}
             <strong class="ms-3">Nome:</strong> {{ user.get_full_name|default:"Fale com Administrador" }}
+        </p>
+    </section>
+
+    <section class="mt-5">
+        <h2 class="mb-3">🗂️ Responsabilidades</h2>
+        <p class="lead">
+            {{ object.function|default:"Nenhuma cargo selecionado no Perfil." }}
+        </p>
+        <p class="">
+            {{ object.function.description|default:""|safe }}
         </p>
     </section>
 
@@ -65,14 +74,19 @@
                     <div class="card shadow-sm text-center p-2">
                         <h6 class="card-title mb-1">{{ sys.system.name }}</h6>
                         <p class="card-text mb-0">
+
+                            {# Estrela fixa #}
                             <i class="bi bi-star-fill text-warning"></i>
+
+                            {# Loop das estrelas #}
                             {% for i in "1234"|make_list %}
-                                {% if forloop.counter <= skill.level %}
+                                {% if forloop.counter <= sys.level %}
                                     <i class="bi bi-star-fill text-warning"></i>
                                 {% else %}
                                     <i class="bi bi-star text-secondary"></i>
                                 {% endif %}
                             {% endfor %}
+
                         </p>
                     </div>
                 </div>
@@ -81,6 +95,7 @@
             {% endfor %}
         </div>
     </section>
+
 
     <section class="mt-5">
         <h2 class="mb-3">📜 Certificações</h2>
@@ -132,16 +147,6 @@
         {% else %}
             <p class="small">Nenhuma certificação cadastrada.</p>
         {% endif %}
-    </section>
-
-    <section class="mt-5">
-        <h2 class="mb-3">👔 Responsabilidades</h2>
-        <p class="lead">
-            {{ object.function|default:"Nenhuma cargo selecionado no Perfil." }}
-        </p>
-        <p class="">
-            {{ object.function.description|default:""|safe }}
-        </p>
     </section>
 
 {% endblock content %}

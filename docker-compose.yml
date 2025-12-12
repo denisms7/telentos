@@ -53,6 +53,8 @@ services:
     command: >
       sh -c "
         python manage.py migrate &&
+        python manage.py load_systems &&
+        python manage.py load_skills &&
         python manage.py collectstatic --noinput &&
         gunicorn --config gunicorn_config.py app.wsgi:application
       "

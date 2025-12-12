@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Profile
@@ -8,14 +8,3 @@ from .models import Profile
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
-
-@receiver(post_delete, sender=User)
-def delete_user_profile(sender, instance, **kwargs):
-    """
-    Remove o Profile associado quando o usuário é apagado.
-    """
-    try:
-        instance.profile.delete()
-    except Profile.DoesNotExist:
-        pass

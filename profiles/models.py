@@ -18,7 +18,7 @@ class CertificationType(models.TextChoices):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name="Usuário", on_delete=models.CASCADE, related_name="profile", unique=True,)
-    registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True, unique=True,)
+    registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True, null=True,)
     function = models.ForeignKey(Function, on_delete=models.PROTECT, related_name="Function", blank=True, null=True,)
     admission_date = models.DateField(verbose_name="Admissão", blank=True, null=True,)
     public = models.BooleanField(verbose_name="Perfil Público", default=True)

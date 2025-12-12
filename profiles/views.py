@@ -34,7 +34,10 @@ class PublicProfileListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        queryset = Profile.objects.filter(public=True).select_related("user")
+        queryset = Profile.objects.filter(
+            public=True,
+            user__is_active=True,
+            ).select_related("user")
 
         query = self.request.GET.get("q", "").strip()
 

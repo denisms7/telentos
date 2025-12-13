@@ -10,6 +10,8 @@
 
     <h2>🧠 Adicionar Habilidades</h2>
 
+    {% include "profiles/skills/modal_skill.html" %}
+
     <div class="container mt-4">
 
         <form class="row" method="post" enctype="multipart/form-data">
@@ -28,7 +30,14 @@
 
             <div class="col-sm-6 col-md-4 mb-3">
                 <label for="{{ form.level.id_for_label }}" class="form-label">{{ form.level.label }}: {% if form.level.field.required %}<span class="text-danger">*</span>{% endif %}</label>
-                {% render_field form.level class="form-select" %}
+                
+                <div class="input-group">
+                    {% render_field form.level class="form-select" %}
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ModalHabilidadeNivel">
+                        <i class="bi bi-question-lg"></i>
+                    </button>
+                </div>
+
                 {% for error in form.level.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}

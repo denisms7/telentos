@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 
 
 class SkillLevel(models.IntegerChoices):
+    ROBOTIC = 0, "Robótico"
     BASIC = 1, "Básico"
     INTERMEDIATE = 2, "Intermediário"
     ADVANCED = 3, "Avançado"

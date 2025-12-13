@@ -145,11 +145,11 @@ class Command(BaseCommand):
                 ),
                 "description": """
                 <p>
-                    - Dirigir veículos de pequeno, médio e grande porte;
-                    - Dirigir ônibus de transporte de alunos, desde que possua a habilitação e os cursos exigidos pelo Código Nacional de Trânsito;
-                    - Dirigir ambulância;
-                    - Controla o consumo de combustíveis, quilometragem, lubrificação, objetivando a manutenção do veículo;
-                    - Executa toda e qualquer outra tarefa não especificada, porém assemelhada a essas funções descritas;
+                    - Dirigir veículos de pequeno, médio e grande porte;<br />
+                    - Dirigir ônibus de transporte de alunos, desde que possua a habilitação e os cursos exigidos pelo Código Nacional de Trânsito;<br />
+                    - Dirigir ambulância;<br />
+                    - Controla o consumo de combustíveis, quilometragem, lubrificação, objetivando a manutenção do veículo;<br />
+                    - Executa toda e qualquer outra tarefa não especificada, porém assemelhada a essas funções descritas;<br />
                     - Efetua carga e descarga dos veículos que dirige, bem como realiza entrega de mercadorias, pacotes e outros produtos.
                 </p>
                 """,

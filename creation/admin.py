@@ -42,5 +42,4 @@ class AccessRequestAdmin(admin.ModelAdmin):
         if was_pending and obj.status == 'approved':
             create_user_from_request(obj)
 
-
     approve_requests.short_description = 'Aprovar solicitações selecionadas'

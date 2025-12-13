@@ -14,17 +14,18 @@ User = get_user_model()
 def create_user_from_request(access_request):
     password = get_random_string(10)
 
-    user, created = User.objects.get_or_create(
+    user, _ = User.objects.get_or_create(
         username=access_request.username,
         defaults={
             'email': access_request.email,
         },
     )
 
-    if created:
-        user.set_password(password)
-        user.first_name = access_request.full_name
-        user.save()
+    # 🔐 SEMPRE atualizar a senha provisória
+    user.set_password(password)
+    user.first_name = access_request.full_name
+    user.email = access_request.email
+    user.save()
 
     Profile.objects.update_or_create(
         user=user,

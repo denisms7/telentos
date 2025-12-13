@@ -62,6 +62,13 @@
 
                         <!-- Perfil Publico -->
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'skills:all_cargos' %}">
+                                Cargos
+                            </a>
+                        </li>
+
+                        <!-- Perfil Publico -->
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{% url 'profiles:perfis_publicos' %}">
                                 Servidores
                             </a>
@@ -98,10 +105,15 @@
                             SAIR
                         </button>
                     {% else %}
-                        {% if request.resolver_match.url_name == 'login' %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            ENTRAR
-                        </button>
+                        {% if request.resolver_match.url_name == 'login' %} 
+                            <div class="g-1">
+                                <a class="btn btn-outline-dark" aria-current="page" href="{% url 'skills:all_cargos' %}">
+                                    CARGOS
+                                </a>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    ENTRAR
+                                </button>
+                            </div>
                         {% endif %}
                     {% endif %}
                 </form>

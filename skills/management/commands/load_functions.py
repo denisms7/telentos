@@ -161,7 +161,6 @@ class Command(BaseCommand):
 
         created_count = 0
 
-
         for data in functions:
             function, created = Function.objects.get_or_create(
                 name=data["name"],

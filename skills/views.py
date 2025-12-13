@@ -1,9 +1,10 @@
 from django.views.generic import ListView
-from .models import System, Skill, SkillType
+from .models import System, Skill, SkillType, Function
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class SystemListView(ListView):
+class SystemListView(LoginRequiredMixin, ListView):
     model = System
     template_name = "skills/system_list.html"
     context_object_name = "systems"
@@ -18,7 +19,7 @@ class SystemListView(ListView):
         return queryset
 
 
-class SkillListView(ListView):
+class SkillListView(LoginRequiredMixin, ListView):
     model = Skill
     template_name = "skills/skill_list.html"
     context_object_name = "skills"
@@ -43,3 +44,18 @@ class SkillListView(ListView):
         context = super().get_context_data(**kwargs)
         context["skill_types"] = SkillType.choices
         return context
+
+
+class FunctionListView(ListView):
+    model = Function
+    template_name = "skills/function_list.html"
+    context_object_name = "functions"
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = Function.objects.filter(active=True)
+
+        q = self.request.GET.get("q")
+        if q:
+            queryset = queryset.filter(Q(name__icontains=q) | Q(description__icontains=q))
+        return queryset

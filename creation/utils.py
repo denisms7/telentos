@@ -1,24 +1,22 @@
 import re
 
 
-def is_valid_cpf(value):
-    cpf = re.sub(r'\D', '', value)
+def is_valid_cpf(cpf):
+    cpf = ''.join(filter(str.isdigit, cpf))
 
     if len(cpf) != 11:
         return False
 
-    if cpf == cpf[0] * 11:
+    if cpf in (c * 11 for c in '0123456789'):
         return False
 
-    for i in range(9, 11):
-        total = sum(
-            int(cpf[num]) * ((i + 1) - num)
-            for num in range(i)
-        )
-        digit = (total * 10) % 11
-        digit = 0 if digit == 10 else digit
+    soma_1 = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    dig_1 = (soma_1 * 10 % 11) % 10
 
-        if digit != int(cpf[i]):
-            return False
+    soma_2 = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    dig_2 = (soma_2 * 10 % 11) % 10
 
-    return True
+    return (
+        int(cpf[9]) == dig_1
+        and int(cpf[10]) == dig_2
+    )

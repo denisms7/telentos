@@ -21,8 +21,6 @@ class AccessRequestForm(forms.ModelForm):
         cpf = self.cleaned_data.get('cpf')
 
         if not is_valid_cpf(cpf):
-            raise forms.ValidationError(
-                'CPF inválido. Verifique o número informado.'
-            )
+            raise forms.ValidationError('CPF inválido.')
 
         return cpf

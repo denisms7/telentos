@@ -5,7 +5,7 @@ from profiles.models import Profile
 
 class ProfileDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Profile
-    template_name = "home/profile.html"
+    template_name = "profiles/profiles/profile.html"
     permission_required = 'register.view_certification'
 
     def get_object(self):

@@ -48,10 +48,10 @@ class System(models.Model):
 class Function(models.Model):
 
     class EducationLevel(models.TextChoices):
-        FUNDAMENTAL = "FUNDAMENTAL", "Fundamental"
-        MEDIO = "MEDIO", "Médio"
-        TECNICO = "TECNICO", "Técnico"
-        SUPERIOR = "SUPERIOR", "Superior"
+        FUNDAMENTAL = "FUNDAMENTAL", "Ensino Fundamental"
+        MEDIO = "MEDIO", "Ensino Médio"
+        TECNICO = "TECNICO", "Ensino Técnico"
+        SUPERIOR = "SUPERIOR", "Ensino Superior"
 
     created_at = models.DateTimeField("Criação", auto_now_add=True)
     active = models.BooleanField("Ativo", default=True,)

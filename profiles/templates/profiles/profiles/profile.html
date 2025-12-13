@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Inicio - Telentos{% endblock title %}
+{% block title %}Telentos{% endblock title %}
 
 {% block content %}
 
@@ -20,21 +20,31 @@
         <div>
             <strong>Admissão:</strong> {{ object.admission_date|date:"d/m/Y"|default:"Preencha o Perfil" }}
             <strong class="ms-3">Matrícula:</strong> {{ object.registration|default:"Preencha o Perfil" }}
-            {% if user.username == object.user.username %}
-                <strong class="ms-3">Usuário:</strong> {{ user.username }}
-            {% endif %}
         </div>
     </section>
 
     <section class="mt-5">
         <h2 class="mb-3">🗂️ Responsabilidades</h2>
-        <p class="lead">
-            {{ object.function|default:"Nenhuma cargo selecionado no Perfil." }}
-        </p>
-        <p>
-            {{ object.function.description|default:""|safe }}
-        </p>
+
+        {% if object.function %}
+            <p class="lead">
+                <strong>{{ object.function }}</strong><br>
+                Nível de escolaridade:
+                {{ object.function.get_education_level_display }}<br>
+                Carga horária:
+                {{ object.function.workload }} horas semanais.
+            </p>
+
+            <p>
+                {{ object.function.description|safe }}
+            </p>
+        {% else %}
+            <p class="lead text-muted">
+                Nenhum cargo selecionado no perfil.
+            </p>
+        {% endif %}
     </section>
+
 
     <section class="mt-5">
         <h2 class="mb-3">🧠 Habilidades</h2>
@@ -55,6 +65,7 @@
                     >
                         <div class="card-body text-center p-2">
                             <h6 class="card-title mb-1">{{ skill.skill.name }}</h6>
+
                             <p class="card-text mb-0">
                                 {% for i in "1234"|make_list %}
                                     {% if forloop.counter <= skill.level %}
@@ -70,7 +81,9 @@
                 </div>
             {% empty %}
                 <div class="col-12">
-                    <p class="small">Nenhuma habilidade cadastrada.</p>
+                    <p class="lead text-muted">
+                        Nenhuma habilidade cadastrada.
+                    </p>
                 </div>
             {% endfor %}
         </div>
@@ -94,7 +107,6 @@
                         {% endif %}
                     >
                         <h6 class="card-title mb-1">{{ sys.system.name }}</h6>
-
                         <p class="card-text mb-0">
                             {% for i in "1234"|make_list %}
                                 {% if forloop.counter <= sys.level %}
@@ -107,7 +119,9 @@
                     </div>
                 </div>
             {% empty %}
-                <p class="small">Nenhuma habilidade em sistema cadastrada.</p>
+                <p class="lead text-muted">
+                    Nenhuma habilidade em sistema cadastrada.
+                </p>
             {% endfor %}
         </div>
     </section>
@@ -160,7 +174,9 @@
                 </table>
             </div>
         {% else %}
-            <p class="small">Nenhuma certificação cadastrada.</p>
+            <p class="lead text-muted">
+                Nenhuma certificação cadastrada.
+            </p>
         {% endif %}
     </section>
 

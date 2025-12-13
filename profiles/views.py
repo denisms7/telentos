@@ -72,7 +72,7 @@ class PublicProfileListView(LoginRequiredMixin, ListView):
 
 class ProfilePublicDetailView(DetailView):
     model = Profile
-    template_name = "profiles/profiles/profile_public.html"
+    template_name = "profiles/profiles/profile.html"
 
     def get_object(self, queryset=None):
         profile = get_object_or_404(Profile, pk=self.kwargs["pk"])

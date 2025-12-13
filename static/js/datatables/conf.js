@@ -8,8 +8,14 @@ $(document).ready(function () {
             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
         },
         columnDefs: [
-            { orderable: false, targets: -1 },
-            { type: 'string', targets: 0 } // força ordenação textual
+            {
+                orderable: false,
+                targets: -1
+            },
+            {
+                type: 'string',
+                targets: 0
+            }
         ]
     });
 });

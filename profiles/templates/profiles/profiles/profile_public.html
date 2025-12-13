@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load widget_tweaks %}
 
 {% block title %}Inicio - Telentos{% endblock title %}
@@ -34,7 +35,6 @@
             {{ object.function.description|default:""|safe }}
         </p>
     </section>
-
 
     <section class="mt-5">
         <h2 class="mb-3">🧠 Habilidades</h2>
@@ -116,7 +116,7 @@
         <h2 class="mb-3">📜 Certificações</h2>
         {% if object.certifications.all %}
             <div class="table-responsive">
-                <table class="table table-sm table-striped table-hover align-middle">
+                <table class="table table-sm table-striped table-hover align-middle tabela-classificacao">
                     <thead class="table-light">
                         <tr>
                             <th>Data</th>
@@ -174,3 +174,10 @@
 </script>
 
 {% endblock content %}
+
+{% block script %}
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'js/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/datatables/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'js/datatables/conf.js' %}"></script>
+{% endblock script %}

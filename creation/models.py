@@ -18,13 +18,7 @@ class AccessRequest(models.Model):
     full_name = models.CharField(max_length=255, verbose_name="Nome Completo")
     cpf = models.CharField(max_length=14, verbose_name="CPF")
     role = models.ForeignKey(Function, on_delete=models.PROTECT, related_name="access_requests", verbose_name="Cargo Efetivo",)
-
-    status = models.CharField(
-        max_length=10,
-        choices=STATUS_CHOICES,
-        default=STATUS_PENDING,
-    )
-
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=STATUS_PENDING,)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

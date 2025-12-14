@@ -38,7 +38,6 @@ class AccessRequestForm(forms.ModelForm):
             )
         return cpf
 
-
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
@@ -53,6 +52,6 @@ class AccessRequestForm(forms.ModelForm):
 
         if User.objects.filter(username__iexact=username).exists():
             raise forms.ValidationError(
-                'Já existe este usuário cadastrado.'
+                'Este usuário já existe.'
             )
         return username

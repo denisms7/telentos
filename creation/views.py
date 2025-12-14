@@ -12,9 +12,6 @@ class AccessRequestCreateView(CreateView):
     template_name = 'creation/creation.html'
     success_url = reverse_lazy('login')
 
-
-    
-
     def form_valid(self, form):
         response = super().form_valid(form)
 

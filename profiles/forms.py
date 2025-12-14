@@ -44,7 +44,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class CertificationForm(forms.ModelForm):
-    
+
     class Meta:
         model = Certification
         fields = [

@@ -5,15 +5,20 @@ from skills.models import Skill, SkillLevel, System, Function
 
 class CertificationType(models.TextChoices):
     TECHNICAL = "technical", "Curso Técnico"
+
     GRADUATION = "graduation", "Graduação"
+
     POSTGRADUATION = "postgraduation", "Pós-graduação"
     MBA = "mba", "MBA"
+
     MASTER = "master", "Mestrado"
     DOCTORATE = "doctorate", "Doutorado"
     POSTDOCTORATE = "postdoctorate", "Pós-doutorado"
+
     COURSE = "course", "Curso"
     TRAINING = "training", "Treinamento"
     WORKSHOP = "workshop-Oficina", "Workshop/Oficina"
+
 
 
 class Profile(models.Model):
@@ -28,6 +33,47 @@ class Profile(models.Model):
     def __str__(self):
         full_name = self.user.get_full_name().strip()
         return full_name or self.user.username
+
+    @property
+    def course_count(self):
+        return self.certifications.filter(
+            certification_type__in=[
+                CertificationType.COURSE,
+                CertificationType.TRAINING,
+                CertificationType.WORKSHOP,
+            ]
+        ).count()
+
+    @property
+    def technical_count(self):
+        return self.certifications.filter(
+            certification_type=CertificationType.TECHNICAL
+        ).count()
+
+    @property
+    def graduations_count(self):
+        return self.certifications.filter(
+            certification_type=CertificationType.GRADUATION
+        ).count()
+
+    @property
+    def postgraduations_count(self):
+        return self.certifications.filter(
+            certification_type__in=[
+                CertificationType.POSTGRADUATION,
+                CertificationType.MBA,
+            ]
+        ).count()
+
+    @property
+    def masters_doctorates_count(self):
+        return self.certifications.filter(
+            certification_type__in=[
+                CertificationType.MASTER,
+                CertificationType.DOCTORATE,
+                CertificationType.POSTDOCTORATE,
+            ]
+        ).count()
 
 
 class Certification(models.Model):

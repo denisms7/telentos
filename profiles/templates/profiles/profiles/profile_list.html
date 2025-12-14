@@ -11,7 +11,6 @@
 </p>
 
 
-
 <form method="get" class="my-4">
     <div class="row mb-3">
         <div class="col-12 col-sm-12 col-md-6">
@@ -38,17 +37,61 @@
         <thead class="table-primary">
             <tr>
                 <th>Nome</th>
-                <th>Admissão</th>
                 <th>Função</th>
-                <th style="width: 120px;" class="text-end"></th>
+                <th class="text-center">Cursos</th>
+                <th class="text-center">Técnico</th>
+                <th class="text-center">Graduação</th>
+                <th class="text-center">PÓS/MBA</th>
+                <th class="text-center">Mestre/Doutor</th>
+                <th class="text-end"></th>
             </tr>
         </thead>
         <tbody>
             {% for profile in profiles %}
                 <tr>
                     <td>{{ profile.user.get_full_name|default:profile.user.username }}</td>
-                    <td>{{ profile.admission_date|default:"Nada Informado" }}</td>
                     <td>{{ profile.function|default:"Nada Informado" }}</td>
+                    <td class="text-center">
+                        {% if profile.course_count %}
+                            <span class="badge bg-info">
+                                <i class="bi bi-mortarboard-fill"></i>
+                                {{ profile.course_count }}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if profile.technical_count %}
+                            <span class="badge bg-primary">
+                                <i class="bi bi-mortarboard-fill"></i>
+                                {{ profile.technical_count }}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if profile.graduations_count %}
+                            <span class="badge bg-success">
+                                <i class="bi bi-mortarboard-fill"></i>
+                                {{ profile.graduations_count }}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if profile.postgraduations_count %}
+                            <span class="badge bg-warning">
+                                <i class="bi bi-mortarboard-fill"></i>
+                                {{ profile.postgraduations_count }}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if profile.masters_doctorates_count %}
+                            <span class="badge bg-danger">
+                                <i class="bi bi-mortarboard-fill"></i>
+                                {{ profile.masters_doctorates_count }}
+                            </span>
+                        {% endif %}
+                    </td>
+
                     <td class="text-end">
                         <a href="{% url 'profiles:perfis_publicos_det' profile.pk %}" class="btn btn-sm btn-outline-primary">
                             Ver Perfil

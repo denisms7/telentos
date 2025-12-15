@@ -1,4 +1,4 @@
-FROM python:3.13.6-slim-bullseye AS base
+FROM python:3.14.2-slim-trixie AS base
 
 LABEL mantainer="https://github.com/denisms7"
 

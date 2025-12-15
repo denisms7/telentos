@@ -103,7 +103,7 @@
                     </ul>
 
                 <!-- LADO DIREITO -->
-                <form class="d-flex" role="search">
+                <div class="d-flex" role="search">
                     {% if user.is_authenticated %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                             <li class="nav-item">
@@ -120,6 +120,7 @@
                                 type="button"
                                 data-bs-toggle="modal"
                                 data-bs-target="#sair">
+                            <i class="bi bi-door-closed"></i>
                             SAIR
                         </button>
                     {% else %}
@@ -136,7 +137,7 @@
                             </div>
                         {% endif %}
                     {% endif %}
-                </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -161,10 +162,10 @@
                 <form method="POST" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-door-closed"></i> Sair
+                        <i class="bi bi-door-closed"></i> SAIR
                     </button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>

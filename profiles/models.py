@@ -20,7 +20,6 @@ class CertificationType(models.TextChoices):
     WORKSHOP = "workshop-Oficina", "Workshop/Oficina"
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name="Usuário", on_delete=models.CASCADE, related_name="profile", unique=True,)
     registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True, null=True,)

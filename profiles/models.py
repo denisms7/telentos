@@ -7,7 +7,6 @@ class CertificationType(models.TextChoices):
     TECHNICAL = "technical", "Curso Técnico"
 
     GRADUATION = "graduation", "Graduação"
-
     POSTGRADUATION = "postgraduation", "Pós-graduação"
     MBA = "mba", "MBA"
 
@@ -25,7 +24,7 @@ class Profile(models.Model):
     registration = models.CharField(verbose_name="Matrícula", max_length=10, blank=True, null=True,)
     function = models.ForeignKey(Function, verbose_name="Cargo Efetivo", on_delete=models.PROTECT, related_name="Function", blank=True, null=True,)
     admission_date = models.DateField(verbose_name="Admissão", blank=True, null=True,)
-    cpf = models.CharField(max_length=14, verbose_name="CPF")
+    cpf = models.CharField(max_length=14, verbose_name="CPF", unique=True)
     phrase = models.CharField(max_length=250, verbose_name="Frase de Perfil", blank=True, null=True,)
     public = models.BooleanField(verbose_name="Perfil Público", default=True)
 
@@ -117,6 +116,9 @@ class Certification(models.Model):
 
 class ProfileSkill(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="skills",)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Cadastro")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Alteração")
+
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name="profiles", verbose_name="Habilidade",)
     level = models.IntegerField(choices=SkillLevel.choices, verbose_name="Nível", default=SkillLevel.ROBOTIC)
     notes = models.TextField("Observações", blank=True,)
@@ -133,6 +135,9 @@ class ProfileSkill(models.Model):
 
 class ProfileSystem(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="systems", verbose_name="Perfil",)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Cadastro")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Alteração")
+
     system = models.ForeignKey(System, on_delete=models.CASCADE, related_name="profiles", verbose_name="Sistema",)
     level = models.IntegerField(choices=SkillLevel.choices, verbose_name="Nível", default=SkillLevel.ROBOTIC)
     notes = models.TextField("Observações", blank=True,)

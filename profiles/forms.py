@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import ProfileSkill, Certification, Profile, ProfileSystem
+from creation.utils import clean_cpf, is_valid_cpf
 
 
 class UserForm(forms.ModelForm):
@@ -42,6 +43,19 @@ class ProfileForm(forms.ModelForm):
                 },
             ),
         }
+
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get('cpf')
+
+        if not cpf:
+            return cpf
+
+        cpf = clean_cpf(cpf)
+
+        if not is_valid_cpf(cpf):
+            raise forms.ValidationError('CPF inválido.')
+
+        return cpf
 
 
 class CertificationForm(forms.ModelForm):
